@@ -236,9 +236,30 @@ public class CatTree implements Iterable<CatInfo> {
 			}
 		}
 
-		
+		//COMPLETED
 		public int hiredFromMonths(int monthMin, int monthMax) {
-			return monthMax;
+			
+			int nbJunior = 0, nbSenior = 0, nbSame = 0;
+			
+			if(monthMin>monthMax) return 0;
+			
+			if(junior!=null) {
+				nbJunior = junior.hiredFromMonths(monthMin, monthMax);
+			}
+			
+			if(senior!=null) {
+				nbSenior = senior.hiredFromMonths(monthMin, monthMax);
+			}
+
+			if(same!=null) {
+				nbSame = same.hiredFromMonths(monthMin, monthMax);
+			}
+			
+			if(data.monthHired>=monthMin && data.monthHired<=monthMax) {
+				return 1 + nbJunior + nbSenior + nbSame;
+			}
+			
+			return nbJunior + nbSenior + nbSame;
 			// ADD YOUR CODE HERE
 
 		}

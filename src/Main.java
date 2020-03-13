@@ -44,17 +44,22 @@ public class Main {
 
 		// System.out.println("========================\n" + "| Testing hiredFromMonths
 		// |\n" + "========================");
-		/*
-		 * test_17(); test_18(); test_19(); test_20(); test_21();
-		 */
 
-		//System.out.println(
-		//		"========================\n" + "| Testing fluffliestFromMonth |\n" + "========================");
-		//test_22();
-		//test_23();
-		//test_24();
-		//test_25();
-		
+		// test_17();
+		// test_18();
+		// test_19();
+		// test_20();
+		// test_21();
+		// test_26();
+
+		// System.out.println(
+		// "========================\n" + "| Testing fluffliestFromMonth |\n" +
+		// "========================");
+		// test_22();
+		// test_23();
+		// test_24();
+		// test_25();
+
 	}
 
 	// Test: same monthsHired; bigger fur added first
@@ -340,7 +345,7 @@ public class Main {
 		printTree();
 	}
 
-	// Test: hiredFromMonths; only root and not in interval
+	// Test: hiredFromMonths;
 	private static void test_18() throws Exception {
 		System.out.println("\n========================\n" + "| Adding root and checking in (80,90) |\n"
 				+ "========================\n");
@@ -354,7 +359,7 @@ public class Main {
 		printTree();
 	}
 
-	// Test: hiredFromMonths; only root and not in interval
+	// Test: hiredFromMonths;
 	private static void test_19() throws Exception {
 		System.out.println("\n========================\n" + "| Adding root and checking in (80,90) |\n"
 				+ "========================\n");
@@ -369,7 +374,7 @@ public class Main {
 		printTree();
 	}
 
-	// Test: hiredFromMonths; only root and not in interval
+	// Test: hiredFromMonths;
 	private static void test_20() throws Exception {
 		System.out.println("\n========================\n" + "| Adding root and checking in (80,95) |\n"
 				+ "========================\n");
@@ -379,7 +384,7 @@ public class Main {
 		myTree.addCat(bob);
 		myTree.addCat(hilda);
 
-		System.out.println("The test conluded: " + assertEquals(expected, myTree.hiredFromMonths(80, 90)));
+		System.out.println("The test conluded: " + assertEquals(expected, myTree.hiredFromMonths(80, 95)));
 
 		printTree();
 	}
@@ -399,7 +404,7 @@ public class Main {
 		myTree.addCat(gaia);
 		myTree.addCat(coco);
 
-		System.out.println("The test conluded: " + assertEquals(expected, myTree.hiredFromMonths(80, 90)));
+		System.out.println("The test conluded: " + assertEquals(expected, myTree.hiredFromMonths(0, 100)));
 
 		printTree();
 	}
@@ -414,7 +419,8 @@ public class Main {
 		myTree.addCat(doughnut);
 		myTree.addCat(eleanor);
 
-		System.out.println("The test conluded: " + assertEquals(expected, myTree.fluffiestFromMonth(85).furThickness) + " Fluffliest from month: " + myTree.fluffiestFromMonth(85).toString());
+		System.out.println("The test conluded: " + assertEquals(expected, myTree.fluffiestFromMonth(85).furThickness)
+				+ " Fluffliest from month: " + myTree.fluffiestFromMonth(85).toString());
 
 		printTree();
 	}
@@ -427,19 +433,19 @@ public class Main {
 		myTree = new CatTree(felix);
 		myTree.addCat(doughnut);
 		myTree.addCat(eleanor);
-		
-		System.out.println("The test conluded: " + (myTree.fluffiestFromMonth(87)==null));
+
+		System.out.println("The test conluded: " + (myTree.fluffiestFromMonth(87) == null));
 
 		printTree();
 	}
-	
+
 	// Test: FluffliestFromMonth; senior branch
 	private static void test_24() throws Exception {
 		System.out.println("\n========================\n" + "| Checking for month 85; senior branch |\n"
 				+ "========================\n");
 
 		myTree = new CatTree(alice);
-		
+
 		myTree.addCat(bob);
 		myTree.addCat(felix);
 		myTree.addCat(doughnut);
@@ -447,19 +453,20 @@ public class Main {
 		myTree.addCat(hilda);
 		myTree.addCat(gaia);
 		myTree.addCat(coco);
-		
+
 		int expected = myTree.root.senior.fluffiest();
-		System.out.println("The test conluded: " + assertEquals(expected, myTree.fluffiestFromMonth(85).furThickness)+ " Fluffliest from month: " + myTree.fluffiestFromMonth(85).toString());
+		System.out.println("The test conluded: " + assertEquals(expected, myTree.fluffiestFromMonth(85).furThickness)
+				+ " Fluffliest from month: " + myTree.fluffiestFromMonth(85).toString());
 		printTree();
 	}
-	
+
 	// Test: FluffliestFromMonth; junior branch
 	private static void test_25() throws Exception {
 		System.out.println("\n========================\n" + "| Checking for month 88; senior branch |\n"
 				+ "========================\n");
 
 		myTree = new CatTree(alice);
-		
+
 		myTree.addCat(bob);
 		myTree.addCat(felix);
 		myTree.addCat(doughnut);
@@ -467,9 +474,30 @@ public class Main {
 		myTree.addCat(hilda);
 		myTree.addCat(gaia);
 		myTree.addCat(coco);
-		
+
 		int expected = 60;
-		System.out.println("The test conluded: " + assertEquals(expected, myTree.fluffiestFromMonth(88).furThickness)+ " Fluffliest from month: " + myTree.fluffiestFromMonth(88).toString());
+		System.out.println("The test conluded: " + assertEquals(expected, myTree.fluffiestFromMonth(88).furThickness)
+				+ " Fluffliest from month: " + myTree.fluffiestFromMonth(88).toString());
+		printTree();
+	}
+
+	// Test: hiredFromMonths; bad parameters
+	private static void test_26() throws Exception {
+		System.out.println("\n========================\n" + "| Adding root and checking in (1000,100) |\n"
+				+ "========================\n");
+		int expected = 0;
+
+		myTree = new CatTree(alice);
+		myTree.addCat(bob);
+		myTree.addCat(felix);
+		myTree.addCat(doughnut);
+		myTree.addCat(eleanor);
+		myTree.addCat(hilda);
+		myTree.addCat(gaia);
+		myTree.addCat(coco);
+
+		System.out.println("The test conluded: " + assertEquals(expected, myTree.hiredFromMonths(1000, 100)));
+
 		printTree();
 	}
 
