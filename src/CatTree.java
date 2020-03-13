@@ -136,8 +136,8 @@ public class CatTree implements Iterable<CatInfo> {
 			}
 			return this; // DON'T FORGET TO MODIFY THE RETURN IF NEED BE
 		}
-		
-		//COMPLETED
+
+		// COMPLETED
 		public CatNode removeCat(CatInfo c) {
 			// ADD YOUR CODE HERE
 
@@ -149,26 +149,26 @@ public class CatTree implements Iterable<CatInfo> {
 			// if the root is null then the first cat added is the cat passed
 			if (this.data.equals(c)) {
 				CatNode myCat = null;
-				if(this.same!=null) {
-					//move to the root
+				if (this.same != null) {
+					// move to the root
 					myCat = this.same;
-					myCat.senior=this.senior;
-					myCat.junior=this.junior;
-					myCat.same=this.same.same;
-				}else if(this.same==null && this.senior!=null) {
+					myCat.senior = this.senior;
+					myCat.junior = this.junior;
+					myCat.same = this.same.same;
+				} else if (this.same == null && this.senior != null) {
 					myCat = this.senior;
-					
-					if(this.senior.junior!=null) {
+
+					if (this.senior.junior != null) {
 						this.senior.junior.junior = this.junior;
 					}
-					
+
 					myCat.junior = this.senior.junior;
-				}else if(this.same==null && this.senior==null) {
+				} else if (this.same == null && this.senior == null) {
 					myCat = this.junior;
 				}
-				this.junior=null;
-				this.senior=null;
-				this.same=null;
+				this.junior = null;
+				this.senior = null;
+				this.same = null;
 				return myCat;
 			}
 
@@ -187,7 +187,7 @@ public class CatTree implements Iterable<CatInfo> {
 			} else if (c.monthHired == this.data.monthHired) {
 				// recurse through root.same
 				// Edge case: when the fur thickness is the same
-				if(this.same!=null) {
+				if (this.same != null) {
 					this.same = this.same.removeCat(c);
 				}
 
@@ -196,55 +196,84 @@ public class CatTree implements Iterable<CatInfo> {
 			return this; // DON'T FORGET TO MODIFY THE RETURN IF NEED BE
 		}
 
-		//COMPLETED
+		// COMPLETED
 		public int mostSenior() {
-			if(this.senior==null) {
+			if (this.senior == null) {
 				return this.data.monthHired;
 			}
 			return this.senior.mostSenior(); // CHANGE THIS
 		}
 
-		//COMPLETED
+		// COMPLETED
 		public int fluffiest() {
-			if(this.same==null && this.senior==null && this.junior==null) {
+			if (this.same == null && this.senior == null && this.junior == null) {
 				return this.data.furThickness;
-			}else {
+			} else {
 				int senior = 0, junior = 0, same = 0;
-				if(this.junior!=null) {
-					junior=this.junior.fluffiest();
+				if (this.junior != null) {
+					junior = this.junior.fluffiest();
 				}
-				if(this.senior!=null) {
-					senior=this.senior.fluffiest();
+				if (this.senior != null) {
+					senior = this.senior.fluffiest();
 				}
-				if(this.same!=null) {
-					same=this.same.fluffiest();
+				if (this.same != null) {
+					same = this.same.fluffiest();
 				}
-				return max(junior,senior,same, this.data.furThickness);
+				return max(junior, senior, same, this.data.furThickness);
 			}
 		}
-		
-		//HELPER
+
+		// HELPER
 		private int max(int junior, int senior, int same, int itself) {
-			if(junior>senior && junior > same && junior > itself) {
+			if (junior > senior && junior > same && junior > itself) {
 				return junior;
-			}else if(senior>same && senior>junior && senior>itself) {
+			} else if (senior > same && senior > junior && senior > itself) {
 				return senior;
-			}else if(same>senior && same>junior && same>itself){
+			} else if (same > senior && same > junior && same > itself) {
 				return same;
-			}else {
+			} else {
 				return itself;
 			}
 		}
 
+		
 		public int hiredFromMonths(int monthMin, int monthMax) {
+			return monthMax;
 			// ADD YOUR CODE HERE
-			return -1; // DON'T FORGET TO MODIFY THE RETURN IF NEED BE
 
 		}
-
+		
+		//COMPLETED
 		public CatInfo fluffiestFromMonth(int month) {
-			// ADD YOUR CODE HERE
-			return null; // DON'T FORGET TO MODIFY THE RETURN IF NEED BE
+			CatInfo juniorInfo = null, seniorInfo = null, sameInfo = null;
+
+			if (this.junior != null) {
+				juniorInfo = this.junior.fluffiestFromMonth(month);
+				if (juniorInfo != null && juniorInfo.furThickness > data.furThickness) {
+					return juniorInfo;
+				}
+			}
+
+			if (this.senior != null) {
+				seniorInfo = this.senior.fluffiestFromMonth(month);
+				if (seniorInfo != null && seniorInfo.furThickness > data.furThickness) {
+					return seniorInfo;
+				}
+			}
+
+			if (this.same != null) {
+				sameInfo = this.same.fluffiestFromMonth(month);
+				if (sameInfo != null && sameInfo.furThickness > data.furThickness) {
+					return sameInfo;
+				}
+			}
+
+			if (this.data.monthHired == month) {
+				return this.data;
+			}
+
+			return null;
+
 		}
 
 		public int[] costPlanning(int nbMonths) {
