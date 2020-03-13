@@ -298,13 +298,29 @@ public class CatTree implements Iterable<CatInfo> {
 
 		}
 
+		//COMPLETED
 		public int[] costPlanning(int nbMonths) {
-			// ADD YOUR CODE HERE
-			return null; // DON'T FORGET TO MODIFY THE RETURN IF NEED BE
+			int[] myCostPlanning = new int[nbMonths];
+			int sum = 0;
+			
+			for(int i=0;i<nbMonths;i++) {
+				CatTreeIterator myIterator = new CatTreeIterator();
+				
+				while(myIterator.hasNext()) {
+					CatInfo myInfo = myIterator.next();
+					if(myInfo.nextGroomingAppointment==(243+i)) sum+=myInfo.expectedGroomingCost;
+				}
+				
+				myCostPlanning[i]=sum;
+				sum=0;
+			}
+			
+			return myCostPlanning; // DON'T FORGET TO MODIFY THE RETURN IF NEED BE
 		}
 
 	}
-
+	
+	//COMPLETE
 	private class CatTreeIterator implements Iterator<CatInfo> {
 		// HERE YOU CAN ADD THE FIELDS YOU NEED
 		ArrayList<CatNode> myList = new ArrayList<CatNode>();

@@ -1,15 +1,16 @@
+import java.util.Arrays;
 import java.util.Iterator;
 
 public class Main {
 
-	static CatInfo alice = new CatInfo("Alice", 87, 50, 88, 10);
-	static CatInfo felix = new CatInfo("Felix", 85, 60, 87, 10);
-	static CatInfo bob = new CatInfo("Bob", 88, 60, 89, 10);
-	static CatInfo doughnut = new CatInfo("Doughnut", 85, 50, 86, 10);
-	static CatInfo eleanor = new CatInfo("Eleanor", 85, 45, 86, 10);
-	static CatInfo hilda = new CatInfo("Hilda", 95, 55, 96, 10);
-	static CatInfo gaia = new CatInfo("Gaia", 86, 55, 87, 10);
-	static CatInfo coco = new CatInfo("Coco", 87, 55, 88, 10);
+	static CatInfo alice = new CatInfo("Alice", 87, 50, 250, 35);
+	static CatInfo felix = new CatInfo("Felix", 85, 60, 249, 26);
+	static CatInfo bob = new CatInfo("Bob", 88, 60, 248, 50);
+	static CatInfo doughnut = new CatInfo("Doughnut", 85, 50, 247, 5);
+	static CatInfo eleanor = new CatInfo("Eleanor", 85, 45, 246, 42);
+	static CatInfo hilda = new CatInfo("Hilda", 95, 55, 244, 46);
+	static CatInfo gaia = new CatInfo("Gaia", 86, 55, 249, 11);
+	static CatInfo coco = new CatInfo("Coco", 87, 55, 249, 23);
 	static CatTree myTree;
 
 	public static void main(String[] args) throws Exception {
@@ -61,9 +62,15 @@ public class Main {
 		// test_24();
 		// test_25();
 
-		//System.out.println(
-		//		"========================\n" + "| Testing Iterator |\n" + "========================");
-		//test_27();
+		// System.out.println(
+		// "========================\n" + "| Testing Iterator |\n" +
+		// "========================");
+		// test_27();
+		
+		 System.out.println(
+		 "========================\n" + "| Testing costPlanning |\n" +
+		 "========================");
+		test_28();
 
 	}
 
@@ -534,6 +541,35 @@ public class Main {
 		}
 
 		System.out.println("\n");
+		printTree();
+	}
+
+	// Test: Iterator
+	private static void test_28() throws Exception {
+		System.out.println(
+				"\n========================\n" + "| Iterating through myTree |\n" + "========================\n");
+
+		myTree = new CatTree(alice);
+		myTree.addCat(bob);
+		myTree.addCat(felix);
+		myTree.addCat(doughnut);
+		myTree.addCat(eleanor);
+		myTree.addCat(hilda);
+		myTree.addCat(gaia);
+		myTree.addCat(coco);
+
+		int testArray[] = new int[] { 0, 46, 0, 42, 5, 50, 60};
+		int actualArray[] = myTree.costPlanning(7);
+		
+		//make sure size is good
+		assertEquals(testArray.length,actualArray.length);
+		
+		for(int i = 0; i<testArray.length;i++){
+			assertEquals(testArray[i], actualArray[i]);
+		}
+		
+		System.out.println(Arrays.toString(actualArray));
+		
 		printTree();
 	}
 

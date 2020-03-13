@@ -367,7 +367,6 @@ public class MiniTester
 			t.addCat(h);
 			
 			int most = t.root.senior.fluffiest();
-			System.out.println("most was:" + most + "\n" + t.root);
 			if (most == 60) {
 				grade += 3;
 			} else {
