@@ -1,3 +1,4 @@
+import java.util.Iterator;
 
 public class Main {
 
@@ -59,6 +60,10 @@ public class Main {
 		// test_23();
 		// test_24();
 		// test_25();
+
+		//System.out.println(
+		//		"========================\n" + "| Testing Iterator |\n" + "========================");
+		//test_27();
 
 	}
 
@@ -498,6 +503,37 @@ public class Main {
 
 		System.out.println("The test conluded: " + assertEquals(expected, myTree.hiredFromMonths(1000, 100)));
 
+		printTree();
+	}
+
+	// Test: Iterator
+	private static void test_27() throws Exception {
+		System.out.println(
+				"\n========================\n" + "| Iterating through myTree |\n" + "========================\n");
+
+		myTree = new CatTree(alice);
+		myTree.addCat(bob);
+		myTree.addCat(felix);
+		myTree.addCat(doughnut);
+		myTree.addCat(eleanor);
+		myTree.addCat(hilda);
+		myTree.addCat(gaia);
+		myTree.addCat(coco);
+
+		Iterator myIter = myTree.iterator();
+		int counter = 0;
+		CatInfo testArray[] = new CatInfo[] { eleanor, doughnut, felix, gaia, alice, coco, bob, hilda };
+
+		while (myIter.hasNext()) {
+			CatInfo myInfo = (CatInfo) myIter.next();
+			if (!myInfo.equals(testArray[counter])) {
+				throw new Exception("expected: " + testArray[counter].name + " and got " + myInfo.name);
+			}
+			System.out.print(myInfo + " : ");
+			counter++;
+		}
+
+		System.out.println("\n");
 		printTree();
 	}
 

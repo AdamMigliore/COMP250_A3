@@ -236,35 +236,36 @@ public class CatTree implements Iterable<CatInfo> {
 			}
 		}
 
-		//COMPLETED
+		// COMPLETED
 		public int hiredFromMonths(int monthMin, int monthMax) {
-			
+
 			int nbJunior = 0, nbSenior = 0, nbSame = 0;
-			
-			if(monthMin>monthMax) return 0;
-			
-			if(junior!=null) {
+
+			if (monthMin > monthMax)
+				return 0;
+
+			if (junior != null) {
 				nbJunior = junior.hiredFromMonths(monthMin, monthMax);
 			}
-			
-			if(senior!=null) {
+
+			if (senior != null) {
 				nbSenior = senior.hiredFromMonths(monthMin, monthMax);
 			}
 
-			if(same!=null) {
+			if (same != null) {
 				nbSame = same.hiredFromMonths(monthMin, monthMax);
 			}
-			
-			if(data.monthHired>=monthMin && data.monthHired<=monthMax) {
+
+			if (data.monthHired >= monthMin && data.monthHired <= monthMax) {
 				return 1 + nbJunior + nbSenior + nbSame;
 			}
-			
+
 			return nbJunior + nbSenior + nbSame;
 			// ADD YOUR CODE HERE
 
 		}
-		
-		//COMPLETED
+
+		// COMPLETED
 		public CatInfo fluffiestFromMonth(int month) {
 			CatInfo juniorInfo = null, seniorInfo = null, sameInfo = null;
 
@@ -306,18 +307,38 @@ public class CatTree implements Iterable<CatInfo> {
 
 	private class CatTreeIterator implements Iterator<CatInfo> {
 		// HERE YOU CAN ADD THE FIELDS YOU NEED
-
+		ArrayList<CatNode> myList = new ArrayList<CatNode>();
+		
+		//COMPLETE
 		public CatTreeIterator() {
 			// YOUR CODE GOES HERE
+			// The most senior and most fluffy is the given by taken the catInfo from the
+			// fluffiest Cat in the mostSenior month
+			pushCat(root);
 		}
-
+		
+		//COMPLETE
+		private void pushCat(CatNode node) {
+			// adds the node to 0: first in first out; last node is the root
+				if (!myList.contains(node) && node != null) {
+					myList.add(0, node);
+					pushCat(node.same);
+					pushCat(node.senior);
+			}
+		}
+		
+		//COMPLETE
 		public CatInfo next() {
-			// YOUR CODE GOES HERE
-			return null; // DON'T FORGET TO MODIFY THE RETURN IF NEED BE
+			CatNode node = myList.remove(0);
+			pushCat(node.junior);
+			return node.data; // DON'T FORGET TO MODIFY THE RETURN IF NEED BE
 		}
-
+		
+		//COMPLETE
 		public boolean hasNext() {
-			// YOUR CODE GOES HERE
+			if (!myList.isEmpty()) {
+				return true;
+			}
 			return false; // DON'T FORGET TO MODIFY THE RETURN IF NEED BE
 		}
 	}
