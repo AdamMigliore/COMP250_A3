@@ -14,21 +14,32 @@ public class Main {
 	public static void main(String[] args) {
 		System.out.println("========================\n" + "| Welcome to Cat Cafe! |\n" + "========================");
 
-		// System.out.println("========================\n" + "| Testing Adding |\n" +
-		// "========================");
+		// System.out.println("========================\n" + "| Testing Adding |\n"
+		// +"========================");
 		// test_1();
 		// test_2();
 		// test_3();
 		// test_4();
 		// test_5();
-		// test_full();
+		// test_13();
 
-		System.out.println("========================\n" + "| Testing Remove |\n" + "========================");
+		// System.out.println("========================\n" + "| Testing Remove |\n" +
+		// "========================");
 		// test_6();
-		//test_7();
+		// test_7();
 		// test_8();
-		//test_9();
-		//test_10();
+		// test_9();
+		// test_10();
+
+		// System.out.println("========================\n" + "| Testing mostSenior |\n"
+		// + "========================");
+		// test_11();
+		// test_12();
+		// test_14();
+
+		//System.out.println("========================\n" + "| Testing fluffiest |\n" + "========================");
+		//test_15();
+		//test_16();
 
 	}
 
@@ -173,20 +184,134 @@ public class Main {
 		myTree.removeCat(alice);
 		printTree();
 	};
-	
-	//Test: Test removeCat when Node to remove is at root
+
+	// Test: Test removeCat when Node to remove is at root
 	private static void test_10() {
-		System.out.println(
-				"========================\n" + "| Test 6 from MiniTester |\n" + "========================");
+		System.out.println("========================\n" + "| Test 6 from MiniTester |\n" + "========================");
 		CatInfo a = new CatInfo("A", 87, 50, 243, 40);
 		CatInfo b = new CatInfo("B", 85, 60, 240, 30);
 		CatInfo c = new CatInfo("C", 88, 70, 248, 10);
-		
+
 		CatTree t = new CatTree(a);
 		t.addCat(b);
-		
-		t.removeCat(c);	//nothing should change since c not in tree
+
+		t.removeCat(c); // nothing should change since c not in tree
 		t.removeCat(a);
+		printTree();
+	}
+
+	// Test: if mostSenior returns correctly in the full tree
+	private static void test_11() {
+		System.out.println("========================\n"
+				+ "| Running the full test and removing Coco and Alice and Bob |\n" + "========================");
+
+		myTree = new CatTree(alice);
+		myTree.addCat(bob);
+		myTree.addCat(felix);
+		myTree.addCat(doughnut);
+		myTree.addCat(eleanor);
+		myTree.addCat(hilda);
+		myTree.addCat(gaia);
+		myTree.addCat(coco);
+
+		System.out.println("The test concluded: " + assertEquals(felix.monthHired, myTree.mostSenior()) + "\n");
+
+		printTree();
+	}
+
+	// Test: if mostSenior returns correctly with one node
+	private static void test_12() {
+		System.out.println("========================\n"
+				+ "| Running the full test and removing Coco and Alice and Bob |\n" + "========================");
+
+		myTree = new CatTree(alice);
+
+		System.out.println("The test concluded: " + assertEquals(alice.monthHired, myTree.mostSenior()) + "\n");
+
+		printTree();
+	}
+
+	// Test: all cats + a cat that is senior to all
+	private static void test_13() {
+		System.out.println("========================\n"
+				+ "| Running the full test in order and adding a cat that is most senior |\n"
+				+ "========================");
+
+		CatInfo testCat = new CatInfo("TestCat", felix.monthHired - 1, felix.furThickness,
+				felix.nextGroomingAppointment, felix.expectedGroomingCost);
+
+		myTree = new CatTree(alice);
+		myTree.addCat(bob);
+		myTree.addCat(felix);
+		myTree.addCat(doughnut);
+		myTree.addCat(eleanor);
+		myTree.addCat(hilda);
+		myTree.addCat(gaia);
+		myTree.addCat(coco);
+		myTree.addCat(testCat);
+
+		printTree();
+	};
+
+	// Test: if mostSenior returns correctly in the full tree when added a senior
+	// that is most senior
+	private static void test_14() {
+		System.out.println("========================\n"
+				+ "| Running the full test and removing Coco and Alice and Bob |\n" + "========================");
+
+		CatInfo testCat = new CatInfo("TestCat", felix.monthHired - 1, felix.furThickness,
+				felix.nextGroomingAppointment, felix.expectedGroomingCost);
+
+		myTree = new CatTree(alice);
+		myTree.addCat(bob);
+		myTree.addCat(felix);
+		myTree.addCat(doughnut);
+		myTree.addCat(eleanor);
+		myTree.addCat(hilda);
+		myTree.addCat(gaia);
+		myTree.addCat(coco);
+		myTree.addCat(testCat);
+
+		System.out.println("The test concluded: " + assertEquals(testCat.monthHired, myTree.mostSenior()) + "\n");
+
+		printTree();
+	}
+
+	// Test: if fluffiest returns correctly
+	private static void test_15() {
+		System.out.println("========================\n"
+				+ "| Running the full test and removing Coco and Alice and Bob |\n" + "========================");
+
+		CatInfo testCat = new CatInfo("TestCat", felix.monthHired - 1, felix.furThickness + 1,
+				felix.nextGroomingAppointment, felix.expectedGroomingCost);
+
+		myTree = new CatTree(alice);
+		myTree.addCat(bob);
+		myTree.addCat(felix);
+		myTree.addCat(doughnut);
+		myTree.addCat(eleanor);
+		myTree.addCat(hilda);
+		myTree.addCat(gaia);
+		myTree.addCat(coco);
+		myTree.addCat(testCat);
+
+		System.out.println("The test concluded: " + assertEquals(testCat.furThickness, myTree.fluffiest()) + "\n");
+
+		printTree();
+	}
+
+	// Test: if fluffiest returns correctly
+	private static void test_16() {
+		System.out.println("========================\n"
+				+ "| Running the full test and removing Coco and Alice and Bob |\n" + "========================");
+
+		CatInfo testCat = new CatInfo("TestCat", felix.monthHired - 1, felix.furThickness + 1,
+				felix.nextGroomingAppointment, felix.expectedGroomingCost);
+
+		myTree = new CatTree(alice);
+
+		System.out.println("The test concluded: " + assertEquals(alice.furThickness, myTree.fluffiest()) + "\n");
+
 		printTree();
 	}
 
@@ -209,5 +334,9 @@ public class Main {
 
 	public static void printTree() {
 		System.out.println(myTree.root);
+	}
+
+	public static boolean assertEquals(int expected, int actual) {
+		return (expected == actual);
 	}
 }
