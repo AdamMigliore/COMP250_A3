@@ -76,6 +76,7 @@ public class CatTree implements Iterable<CatInfo> {
 			return result;
 		}
 
+		// COMPLETED
 		public CatNode addCat(CatNode c) {
 			// ADD YOUR CODE HERE
 
@@ -95,7 +96,7 @@ public class CatTree implements Iterable<CatInfo> {
 				// we recurse through root.junior
 				// if junior is null then set it
 				if (this.junior != null) {
-					this.junior.addCat(c);
+					this.junior = this.junior.addCat(c);
 				} else {
 					this.junior = c;
 				}
@@ -103,7 +104,7 @@ public class CatTree implements Iterable<CatInfo> {
 				// we recurse through root.senior
 				// if senior is null then set it
 				if (this.senior != null) {
-					this.senior.addCat(c);
+					this.senior = this.senior.addCat(c);
 				} else {
 					this.senior = c;
 				}
@@ -111,22 +112,88 @@ public class CatTree implements Iterable<CatInfo> {
 				// recurse through root.same
 				// Edge case: when the fur thickness is the same
 				if (c.data.furThickness > this.data.furThickness) {
-					//not working	
-					
-				} else if (c.data.furThickness < this.data.furThickness) {
-					
 
-				} else {
-					
+					c.same = this;
+					// also switch senior and junior!
+					c.junior = this.junior;
+					c.senior = this.senior;
+
+					this.junior = null;
+					this.senior = null;
+					return c;
+
+				} else if (c.data.furThickness == this.data.furThickness || this.same == null) {
+
+					c.same = this.same;
+					this.same = c;
+
+				} else if (c.data.furThickness < this.data.furThickness) {
+
+					this.same = this.same.addCat(c);
+
 				}
 
 			}
 			return this; // DON'T FORGET TO MODIFY THE RETURN IF NEED BE
 		}
-
+		
+		//COMPLETED
 		public CatNode removeCat(CatInfo c) {
 			// ADD YOUR CODE HERE
-			return null; // DON'T FORGET TO MODIFY THE RETURN IF NEED BE
+
+			/*
+			 * Strategy: Traverse tree until you find node with same CatInfo and then cut
+			 * it's link and set them to the previous
+			 */
+
+			// if the root is null then the first cat added is the cat passed
+			if (this.data.equals(c)) {
+				CatNode myCat = null;
+				if(this.same!=null) {
+					//move to the root
+					myCat = this.same;
+					myCat.senior=this.senior;
+					myCat.junior=this.junior;
+					myCat.same=this.same.same;
+				}else if(this.same==null && this.senior!=null) {
+					myCat = this.senior;
+					
+					if(this.senior.junior!=null) {
+						this.senior.junior.junior = this.junior;
+					}
+					
+					myCat.junior = this.senior.junior;
+				}else if(this.same==null && this.senior==null) {
+					myCat = this.junior;
+				}
+				this.junior=null;
+				this.senior=null;
+				this.same=null;
+				return myCat;
+			}
+
+			if (c.monthHired > this.data.monthHired) {
+				// we recurse through root.junior
+				// if junior is null then set it
+				if (this.junior != null) {
+					this.junior = this.junior.removeCat(c);
+				}
+			} else if (c.monthHired < this.data.monthHired) {
+				// we recurse through root.senior
+				// if senior is null then set it
+				if (this.senior != null) {
+					this.senior = this.senior.removeCat(c);
+				}
+			} else if (c.monthHired == this.data.monthHired) {
+				// recurse through root.same
+				// Edge case: when the fur thickness is the same
+				if(this.same!=null) {
+					this.same = this.same.removeCat(c);
+				}
+
+			}
+
+			return this; // DON'T FORGET TO MODIFY THE RETURN IF NEED BE
 		}
 
 		public int mostSenior() {
