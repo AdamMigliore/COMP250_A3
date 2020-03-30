@@ -38,6 +38,7 @@ public class Main {
 		// test_11();
 		// test_12();
 		// test_14();
+		// test_30();
 
 		// System.out.println("========================\n" + "| Testing fluffiest |\n" +
 		// "========================");
@@ -67,11 +68,11 @@ public class Main {
 		// "========================");
 		// test_27();
 		
-		 System.out.println(
-		 "========================\n" + "| Testing costPlanning |\n" +
-		 "========================");
-		test_28();
-
+		 //System.out.println(
+		 //"========================\n" + "| Testing costPlanning |\n" +
+		 //"========================");
+		//test_28();
+		 //test_29();
 	}
 
 	// Test: same monthsHired; bigger fur added first
@@ -234,7 +235,7 @@ public class Main {
 	// Test: if mostSenior returns correctly in the full tree
 	private static void test_11() throws Exception {
 		System.out.println("========================\n"
-				+ "| Running the full test and removing Coco and Alice and Bob |\n" + "========================");
+				+ "| Testing most sernior on full tree |\n" + "========================");
 
 		myTree = new CatTree(alice);
 		myTree.addCat(bob);
@@ -572,7 +573,54 @@ public class Main {
 		
 		printTree();
 	}
+	
+	// Test: Iterator
+	private static void test_29() throws Exception {
+		System.out.println(
+				"\n========================\n" + "| Iterating through myTree |\n" + "========================\n");
 
+		myTree = new CatTree(alice);
+		myTree.addCat(bob);
+		myTree.addCat(felix);
+		myTree.addCat(doughnut);
+		myTree.addCat(eleanor);
+		myTree.addCat(hilda);
+		myTree.addCat(gaia);
+		myTree.addCat(coco);
+
+		int testArray[] = new int[] { 0, 46, 0, 0, 0, 50, 0};
+		int actualArray[] = myTree.root.junior.costPlanning(7);
+		
+		//make sure size is good
+		assertEquals(testArray.length,actualArray.length);
+		
+		for(int i = 0; i<testArray.length;i++){
+			assertEquals(testArray[i], actualArray[i]);
+		}
+		
+		System.out.println(Arrays.toString(actualArray));
+		
+		printTree();
+	}
+	
+	private static void test_30() throws Exception {
+		System.out.println("========================\n"
+				+ "| Testing most senior on full tree |\n" + "========================");
+
+		myTree = new CatTree(alice);
+		myTree.addCat(bob);
+		myTree.addCat(felix);
+		myTree.addCat(doughnut);
+		myTree.addCat(eleanor);
+		myTree.addCat(hilda);
+		myTree.addCat(gaia);
+		myTree.addCat(coco);
+
+		System.out.println("The test concluded: " + assertEquals(alice.monthHired, myTree.root.same.mostSenior()) + "\n");
+
+		printTree();
+	}
+	
 	// Creates all the cats from the initial example of addcats
 	private static void test_full() {
 		System.out.println("\n========================\n" + "| Running the full test in order! |\n"

@@ -302,9 +302,10 @@ public class CatTree implements Iterable<CatInfo> {
 		public int[] costPlanning(int nbMonths) {
 			int[] myCostPlanning = new int[nbMonths];
 			int sum = 0;
+			CatTree modifiedTree = new CatTree(this);
 			
 			for(int i=0;i<nbMonths;i++) {
-				CatTreeIterator myIterator = new CatTreeIterator();
+				CatTreeIterator myIterator = (CatTreeIterator) modifiedTree.iterator();
 				
 				while(myIterator.hasNext()) {
 					CatInfo myInfo = myIterator.next();
